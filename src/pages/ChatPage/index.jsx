@@ -5,12 +5,12 @@ import { generateId } from 'helpers'
 import './index.styl'
 
 export default () => {
-  const userToken = localStorage.getItem('userToken')
   const userAddress = localStorage.getItem('userAddress')
-  const [mesiboApi, $mesiboApi] = useState(null)
-  const [message, $message] = useState('')
-  const [userName, $userName] = useState('')
+  const userToken = localStorage.getItem('userToken')
   const [readSession, $readSession] = useState(null)
+  const [mesiboApi, $mesiboApi] = useState(null)
+  const [userName, $userName] = useState('')
+  const [message, $message] = useState('')
   const [, $forceUpdate] = useState({})
 
   const createAndStoreUser = async () => {
@@ -74,14 +74,15 @@ export default () => {
   }
 
   const { messages = [] } = readSession || {}
-  console.log({ messages })
   return (
     <div className='mesibo-chat-main-wraper'>
       <div className='mesibo-chat-messages-wrapper'>
         {messages.map((itm, ind) => (
           <div key={`${itm.id}_${itm.ts}_${ind}`} className='mesibo-chat-message-wrapper'>
-            <div style={{ fontWeight: '700' }}>{itm.peer || userAddress}</div>
-            <div>{itm.message}</div>
+            <div className='mesibo-chat-message-userName' style={{ fontWeight: '700' }}>
+              {itm.peer || userAddress}
+            </div>
+            <div className='mesibo-chat-message-messageData'>{itm.message}</div>
           </div>
         ))}
       </div>
