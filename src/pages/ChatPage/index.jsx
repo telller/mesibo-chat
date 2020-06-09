@@ -24,7 +24,7 @@ export default () => {
     }
   }
 
-  const initMesibo = accessToken => {
+  const initMesibo = (accessToken) => {
     const MesiboListener = () => {
       // MesiboListener.prototype.Mesibo_OnConnectionStatus = (status, value) => {
       //   console.log("OnConnectionStatus: ", { status, value })
@@ -66,8 +66,8 @@ export default () => {
     $message('')
   }
 
-  const readHistory = mesiboApi => {
-    const readSess = mesiboApi.readDbSession(userAddress, GROUP_ID, null, () => $forceUpdate({}))
+  const readHistory = (mesiboApi) => {
+    const readSess = mesiboApi.readDbSession(null, GROUP_ID, null, () => $forceUpdate({}))
     readSess.enableReadReceipt(true)
     readSess.read(DOWNLOAD_HISTORY_COUNT)
     $readSession(readSess)
@@ -87,12 +87,12 @@ export default () => {
       </div>
       {userToken ? (
         <div className='mesibo-chat-sendMessage-wrapper'>
-          <input value={message} onChange={e => $message(e.target.value)} placeholder='Type message' />
+          <input value={message} onChange={(e) => $message(e.target.value)} placeholder='Type message' />
           <button onClick={sendMessage}>Send message</button>
         </div>
       ) : (
         <div className='mesibo-chat-createUser-wrapper'>
-          <input value={userName} onChange={e => $userName(e.target.value)} placeholder='Type user name' />
+          <input value={userName} onChange={(e) => $userName(e.target.value)} placeholder='Type user name' />
           <button onClick={createAndStoreUser}>Start chat</button>
         </div>
       )}
