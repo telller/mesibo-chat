@@ -1,0 +1,5 @@
+{
+  "BASE_URL": "http://production.com",
+  "WS_BASE_URL": "ws://production.com",
+  "PORT": 80
+}

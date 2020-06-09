@@ -1,0 +1,5 @@
+{
+  "BASE_URL": "http://example.com",
+  "WS_BASE_URL": "ws://example.com",
+  "PORT": 3000
+}
