@@ -12,6 +12,16 @@ export default () => {
   const [userName, $userName] = useState('')
   const [message, $message] = useState('')
   const [, $forceUpdate] = useState({})
+  const { messages = [] } = readSession || {}
+
+  useEffect(() => {
+    if (userToken) initMesibo(userToken)
+    // createAndStoreUser()
+  }, [])
+
+  useEffect(() => {
+    scrollToLastMsg()
+  }, [messages.length])
 
   const createAndStoreUser = async () => {
     const userAddress = userName || generateId()
@@ -48,11 +58,6 @@ export default () => {
     readHistory(mesApi)
   }
 
-  useEffect(() => {
-    if (userToken) initMesibo(userToken)
-    // createAndStoreUser()
-  }, [])
-
   const sendMessage = () => {
     const id = mesiboApi.random()
     const mesParams = {
@@ -61,30 +66,37 @@ export default () => {
       message,
       id,
     }
-    console.log({ mesParams })
     mesiboApi.sendMessage(mesParams, id, message)
     $message('')
+    setTimeout(scrollToLastMsg, 0)
   }
 
   const readHistory = (mesiboApi) => {
-    const readSess = mesiboApi.readDbSession(null, GROUP_ID, null, () => $forceUpdate({}))
+    const onMessage = () => {
+      $forceUpdate({})
+      scrollToLastMsg()
+    }
+    const readSess = mesiboApi.readDbSession(null, GROUP_ID, null, onMessage)
     readSess.enableReadReceipt(true)
     readSess.read(DOWNLOAD_HISTORY_COUNT)
     $readSession(readSess)
   }
 
-  const { messages = [] } = readSession || {}
+  const scrollToLastMsg = () => {
+    const el = document.getElementById('mesiboChatMessagesEnd')
+    el && el.scrollIntoView()
+  }
+
   return (
     <div className='mesibo-chat-main-wraper'>
       <div className='mesibo-chat-messages-wrapper'>
         {messages.map((itm, ind) => (
           <div key={`${itm.id}_${itm.ts}_${ind}`} className='mesibo-chat-message-wrapper'>
-            <div className='mesibo-chat-message-userName' style={{ fontWeight: '700' }}>
-              {itm.peer || userAddress}
-            </div>
+            <div className='mesibo-chat-message-userName'>{itm.peer || userAddress}</div>
             <div className='mesibo-chat-message-messageData'>{itm.message}</div>
           </div>
         ))}
+        <div id='mesiboChatMessagesEnd' />
       </div>
       {userToken ? (
         <div className='mesibo-chat-sendMessage-wrapper'>
