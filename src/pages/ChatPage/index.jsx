@@ -104,12 +104,12 @@ export default () => {
         <div id='mesiboChatMessagesEnd' />
       </div>
       {userToken ? (
-        <div className='mesibo-chat-sendMessage-wrapper'>
+        <div className='stream-chart-type-stage'>
           <input value={message} onChange={(e) => $message(e.target.value)} placeholder='Type here' />
           <button onClick={sendMessage}>Send</button>
         </div>
       ) : (
-        <div className='mesibo-chat-createUser-wrapper'>
+        <div className={isStartChat ? 'stream-chart-name-stage' : 'stream-chart-start-stage'}>
           {isStartChat && (
             <input value={userName} onChange={(e) => $userName(e.target.value)} placeholder='Type your name' />
           )}
