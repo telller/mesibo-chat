@@ -7,6 +7,7 @@ import './index.styl'
 export default () => {
   const userAddress = localStorage.getItem('userAddress')
   const userToken = localStorage.getItem('userToken')
+  const [isStartChat, $isStartChat] = useState(false)
   const [readSession, $readSession] = useState(null)
   const [mesiboApi, $mesiboApi] = useState(null)
   const [userName, $userName] = useState('')
@@ -100,13 +101,17 @@ export default () => {
       </div>
       {userToken ? (
         <div className='mesibo-chat-sendMessage-wrapper'>
-          <input value={message} onChange={(e) => $message(e.target.value)} placeholder='Type message' />
-          <button onClick={sendMessage}>Send message</button>
+          <input value={message} onChange={(e) => $message(e.target.value)} placeholder='Type here' />
+          <button onClick={sendMessage}>Send</button>
         </div>
       ) : (
         <div className='mesibo-chat-createUser-wrapper'>
-          <input value={userName} onChange={(e) => $userName(e.target.value)} placeholder='Type user name' />
-          <button onClick={createAndStoreUser}>Start chat</button>
+          {isStartChat && (
+            <input value={userName} onChange={(e) => $userName(e.target.value)} placeholder='Type your name' />
+          )}
+          <button onClick={isStartChat ? createAndStoreUser : () => $isStartChat(true)}>
+            {isStartChat ? 'Go' : 'Chat'}
+          </button>
         </div>
       )}
     </div>
