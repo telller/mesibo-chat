@@ -60,16 +60,18 @@ export default () => {
   }
 
   const sendMessage = () => {
-    const id = mesiboApi.random()
-    const mesParams = {
-      peer: userAddress,
-      groupid: GROUP_ID,
-      message,
-      id,
+    if (message) {
+      const id = mesiboApi.random()
+      const mesParams = {
+        peer: userAddress,
+        groupid: GROUP_ID,
+        message,
+        id,
+      }
+      mesiboApi.sendMessage(mesParams, id, message)
+      $message('')
+      setTimeout(scrollToLastMsg, 0)
     }
-    mesiboApi.sendMessage(mesParams, id, message)
-    $message('')
-    setTimeout(scrollToLastMsg, 0)
   }
 
   const readHistory = (mesiboApi) => {
@@ -85,14 +87,16 @@ export default () => {
 
   const scrollToLastMsg = () => {
     const el = document.getElementById('mesiboChatMessagesEnd')
-    el && el.scrollIntoView()
+    el && el.scrollIntoView(el.scrollHeight)
   }
 
   return (
     <div className='mesibo-chat-main-wraper'>
       <div className='mesibo-chat-messages-wrapper'>
         {messages.map((itm, ind) => (
-          <div key={`${itm.id}_${itm.ts}_${ind}`} className='mesibo-chat-message-wrapper'>
+          <div
+            key={`${itm.id}_${itm.ts}_${ind}`}
+            className={`mesibo-chat-message-wrapper ${itm.peer ? '' : 'my-message'}`}>
             <div className='mesibo-chat-message-userName'>{itm.peer || userAddress}</div>
             <div className='mesibo-chat-message-messageData'>{itm.message}</div>
           </div>
