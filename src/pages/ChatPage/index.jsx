@@ -92,11 +92,11 @@ export default () => {
 
   return (
     <div className='mesibo-chat-main-wraper'>
-      <div className='mesibo-chat-messages-wrapper'>
+      <div className='mesibo-chat-messages-wrapper stream-chat-screen '>
         {messages.map((itm, ind) => (
           <div
             key={`${itm.id}_${itm.ts}_${ind}`}
-            className={`mesibo-chat-single-message-wrap stream-chat-screen ${itm.peer ? '' : 'my-message'}`}>
+            className={`mesibo-chat-single-message-wrap ${itm.peer ? '' : 'my-message'}`}>
             <div className='mesibo-chat-message-userName'>{itm.peer || userAddress}</div>
             <div className='mesibo-chat-message-messageData'>{itm.message}</div>
           </div>
