@@ -96,7 +96,7 @@ export default () => {
         {messages.map((itm, ind) => (
           <div
             key={`${itm.id}_${itm.ts}_${ind}`}
-            className={`mesibo-chat-message-wrapper ${itm.peer ? '' : 'my-message'}`}>
+            className={`mesibo-chat-message-wrapper stream-chart-screen ${itm.peer ? '' : 'my-message'}`}>
             <div className='mesibo-chat-message-userName'>{itm.peer || userAddress}</div>
             <div className='mesibo-chat-message-messageData'>{itm.message}</div>
           </div>
