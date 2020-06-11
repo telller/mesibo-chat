@@ -105,13 +105,18 @@ export default () => {
       </div>
       {userToken ? (
         <div className='stream-chat-type-stage'>
-          <input value={message} onChange={(e) => $message(e.target.value)} placeholder='Type here' />
+          <input type='text' value={message} onChange={(e) => $message(e.target.value)} placeholder='Type here' />
           <button onClick={sendMessage}>Send</button>
         </div>
       ) : (
         <div className={isStartChat ? 'stream-chat-name-stage' : 'stream-chat-start-stage'}>
           {isStartChat && (
-            <input value={userName} onChange={(e) => $userName(e.target.value)} placeholder='Type your name' />
+            <input
+              type='text'
+              value={userName}
+              onChange={(e) => $userName(e.target.value)}
+              placeholder='Type your name'
+            />
           )}
           <button onClick={isStartChat ? createAndStoreUser : () => $isStartChat(true)}>
             {isStartChat ? 'Go' : 'Chat'}
