@@ -96,7 +96,7 @@ export default () => {
         {messages.map((itm, ind) => (
           <div
             key={`${itm.id}_${itm.ts}_${ind}`}
-            className={`mesibo-chat-message-wrapper stream-chart-screen ${itm.peer ? '' : 'my-message'}`}>
+            className={`mesibo-chat-message-wrapper stream-chat-screen ${itm.peer ? '' : 'my-message'}`}>
             <div className='mesibo-chat-message-userName'>{itm.peer || userAddress}</div>
             <div className='mesibo-chat-message-messageData'>{itm.message}</div>
           </div>
@@ -104,12 +104,12 @@ export default () => {
         <div id='mesiboChatMessagesEnd' />
       </div>
       {userToken ? (
-        <div className='stream-chart-type-stage'>
+        <div className='stream-chat-type-stage'>
           <input value={message} onChange={(e) => $message(e.target.value)} placeholder='Type here' />
           <button onClick={sendMessage}>Send</button>
         </div>
       ) : (
-        <div className={isStartChat ? 'stream-chart-name-stage' : 'stream-chart-start-stage'}>
+        <div className={isStartChat ? 'stream-chat-name-stage' : 'stream-chat-start-stage'}>
           {isStartChat && (
             <input value={userName} onChange={(e) => $userName(e.target.value)} placeholder='Type your name' />
           )}
