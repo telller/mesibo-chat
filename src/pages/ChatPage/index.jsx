@@ -37,15 +37,14 @@ export default () => {
 
   const initMesibo = (accessToken) => {
     const MesiboListener = () => {
-      // MesiboListener.prototype.Mesibo_OnConnectionStatus = (status, value) => {
-      //   console.log("OnConnectionStatus: ", { status, value })
-      // }
-      // MesiboListener.prototype.Mesibo_OnMessageStatus = messageData => {
-      //   console.log("OnMessageStatus: ", { messageData })
-      // }
+      MesiboListener.prototype.Mesibo_OnConnectionStatus = (status, value) => {
+        console.log('OnConnectionStatus: ', { status, value })
+      }
+      MesiboListener.prototype.Mesibo_OnMessageStatus = (messageData) => {
+        console.log('OnMessageStatus: ', { messageData })
+      }
       MesiboListener.prototype.Mesibo_OnMessage = (messageData, message) => {
-        // console.log("OnMessage: ", { messageData, message })
-        // $messages(messages => [ ...messages, messageData ])
+        console.log('OnMessage: ', { messageData, message })
         $forceUpdate({})
       }
     }
