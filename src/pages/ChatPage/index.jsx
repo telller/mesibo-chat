@@ -38,6 +38,15 @@ export default () => {
   const initMesibo = (accessToken) => {
     const MesiboListener = () => {
       MesiboListener.prototype.Mesibo_OnConnectionStatus = (status, value) => {
+        if (status === 1 || status === 6) {
+          console.log('All fine')
+        } else {
+          localStorage.removeItem('userAddress')
+          localStorage.removeItem('userToken')
+
+          console.error('adadads')
+          $message([])
+        }
         console.log('OnConnectionStatus: ', { status, value })
       }
       MesiboListener.prototype.Mesibo_OnMessageStatus = (messageData) => {
