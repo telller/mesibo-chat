@@ -44,7 +44,7 @@ export default () => {
           localStorage.removeItem('userAddress')
           localStorage.removeItem('userToken')
 
-          console.error('adadads')
+          console.error('Something went wrong, status: ', status)
           $message([])
         }
         console.log('OnConnectionStatus: ', { status, value })
@@ -126,7 +126,7 @@ export default () => {
               placeholder='Type your name'
             />
           )}
-          <button onClick={isStartChat ? createAndStoreUser : () => $isStartChat(true)}>
+          <button onClick={() => (isStartChat ? createAndStoreUser() : $isStartChat(true))}>
             {isStartChat ? 'Go' : 'Chat'}
           </button>
         </div>
