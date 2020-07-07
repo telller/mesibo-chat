@@ -13,7 +13,9 @@ export default () => {
   const [userName, $userName] = useState('')
   const [message, $message] = useState('')
   const [, $forceUpdate] = useState({})
-  const { messages = [] } = readSession || {}
+  const { messages: mes, N } = readSession || {}
+  const messages = mes || N || []
+  console.log({ readSession })
 
   useEffect(() => {
     if (userToken) initMesibo(userToken)
