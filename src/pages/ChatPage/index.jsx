@@ -42,8 +42,12 @@ export default () => {
       localStorage.setItem('userToken', res.user.token)
       localStorage.setItem('userAddress', userAddress)
       localStorage.setItem('groupId', GROUP_ID)
-      await addUserToGroup(userAddress, GROUP_ID)
-      initMesibo(res.user.token)
+      const gRes = await addUserToGroup(userAddress, GROUP_ID)
+      if ((gRes || {}).result) {
+        initMesibo(res.user.token)
+      } else {
+        console.error(gRes, { GROUP_ID })
+      }
     }
   }
 
