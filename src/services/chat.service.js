@@ -1,8 +1,8 @@
-import { MAIN_ACCESS_TOKEN, MAIN_APP_ID, GROUP_ID } from 'constants'
+import { MAIN_ACCESS_TOKEN, MAIN_APP_ID } from 'constants'
 import { makeRequest } from './baseService'
 import { generateQuery } from 'helpers'
 
-export const createUser = userAddress => {
+export const createUser = (userAddress) => {
   const params = {
     token: MAIN_ACCESS_TOKEN,
     appid: MAIN_APP_ID,
@@ -12,10 +12,10 @@ export const createUser = userAddress => {
   return makeRequest(generateQuery(params))
 }
 
-export const addUserToGroup = userAddress => {
+export const addUserToGroup = (userAddress, groupId) => {
   const params = {
     token: MAIN_ACCESS_TOKEN,
-    gid: GROUP_ID,
+    gid: groupId,
     op: 'groupeditmembers',
     cs: 1,
     cr: 1,

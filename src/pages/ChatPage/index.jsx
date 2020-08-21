@@ -1,8 +1,10 @@
-import { MAIN_APP_ID, GROUP_ID, DOWNLOAD_HISTORY_COUNT } from 'constants'
 import { createUser, addUserToGroup } from 'services/chat.service'
+import { MAIN_APP_ID, DOWNLOAD_HISTORY_COUNT } from 'constants'
 import React, { useEffect, useState } from 'react'
 import { generateId } from 'helpers'
 import './index.styl'
+
+const GROUP_ID = window.chat_id
 
 export default () => {
   const userAddress = localStorage.getItem('userAddress')
@@ -16,7 +18,7 @@ export default () => {
   const [, $forceUpdate] = useState({})
   const { messages: mes, N } = readSession || {}
   const messages = mes || N || []
-  console.log({ GROUP_ID, readSession })
+  console.log({ GROUP_ID, groupId, readSession })
 
   useEffect(() => {
     if (groupId !== GROUP_ID) {
@@ -40,7 +42,7 @@ export default () => {
       localStorage.setItem('userToken', res.user.token)
       localStorage.setItem('userAddress', userAddress)
       localStorage.setItem('groupId', GROUP_ID)
-      await addUserToGroup(userAddress)
+      await addUserToGroup(userAddress, GROUP_ID)
       initMesibo(res.user.token)
     }
   }
