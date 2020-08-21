@@ -7,6 +7,7 @@ import './index.styl'
 export default () => {
   const userAddress = localStorage.getItem('userAddress')
   const userToken = localStorage.getItem('userToken')
+  const groupId = localStorage.getItem('groupId')
   const [isStartChat, $isStartChat] = useState(false)
   const [readSession, $readSession] = useState(null)
   const [mesiboApi, $mesiboApi] = useState(null)
@@ -15,11 +16,17 @@ export default () => {
   const [, $forceUpdate] = useState({})
   const { messages: mes, N } = readSession || {}
   const messages = mes || N || []
-  console.log({ readSession })
+  console.log({ GROUP_ID, readSession })
 
   useEffect(() => {
-    if (userToken) initMesibo(userToken)
-    // createAndStoreUser()
+    if (groupId !== GROUP_ID) {
+      localStorage.removeItem('userAddress')
+      localStorage.removeItem('userToken')
+      localStorage.removeItem('groupId')
+      $forceUpdate({})
+    } else if (userToken) {
+      initMesibo(userToken)
+    }
   }, [])
 
   useEffect(() => {
@@ -30,8 +37,9 @@ export default () => {
     const userAddress = userName || generateId()
     const res = await createUser(userAddress)
     if (res) {
-      localStorage.setItem('userAddress', userAddress)
       localStorage.setItem('userToken', res.user.token)
+      localStorage.setItem('userAddress', userAddress)
+      localStorage.setItem('groupId', GROUP_ID)
       await addUserToGroup(userAddress)
       initMesibo(res.user.token)
     }
